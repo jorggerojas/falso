@@ -19,6 +19,8 @@ jobs:
     name: TypeScript
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Checkout and install
         uses: ./.github/actions/setup-pnpm-node
 
@@ -29,6 +31,8 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Checkout and install
         uses: ./.github/actions/setup-pnpm-node
 
@@ -105,6 +109,8 @@ jobs:
       - typecheck
       - test
     steps:
+      - uses: actions/checkout@v4
+
       - name: Checkout and install
         uses: ./.github/actions/setup-pnpm-node
 

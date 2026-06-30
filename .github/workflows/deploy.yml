@@ -1,0 +1,102 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows:
+      - Release
+    types:
+      - completed
+
+concurrency:
+  group: deploy-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout and install
+        uses: ./.github/actions/setup-pnpm-node
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Prepare release asset
+        id: prepare
+        run: |
+          git fetch --tags --force
+          tag="$(git describe --tags --abbrev=0)"
+          version="${tag#v}"
+          mkdir -p release
+          asset="release/falso-${version}.tar.gz"
+          tar -czf "$asset" dist package.json README.md
+          printf 'release_tag=%s\n' "$tag" >> "$GITHUB_OUTPUT"
+          printf 'release_asset=%s\n' "$asset" >> "$GITHUB_OUTPUT"
+
+      - name: Publish GitHub release asset
+        uses: actions/github-script@v8
+        env:
+          RELEASE_TAG: ${{ steps.prepare.outputs.release_tag }}
+          RELEASE_ASSET: ${{ steps.prepare.outputs.release_asset }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('node:fs');
+            const path = require('node:path');
+
+            const { owner, repo } = context.repo;
+            const tag = process.env.RELEASE_TAG;
+            const assetPath = process.env.RELEASE_ASSET;
+            const assetName = path.basename(assetPath);
+
+            let release;
+            try {
+              release = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+            } catch (error) {
+              if (error.status !== 404) {
+                throw error;
+              }
+
+              release = await github.rest.repos.createRelease({
+                owner,
+                repo,
+                tag_name: tag,
+                name: tag,
+                generate_release_notes: true,
+              });
+            }
+
+            const assets = await github.rest.repos.listReleaseAssets({
+              owner,
+              repo,
+              release_id: release.data.id,
+            });
+
+            for (const asset of assets.data) {
+              if (asset.name === assetName) {
+                await github.rest.repos.deleteReleaseAsset({
+                  owner,
+                  repo,
+                  asset_id: asset.id,
+                });
+              }
+            }
+
+            await github.rest.repos.uploadReleaseAsset({
+              owner,
+              repo,
+              release_id: release.data.id,
+              name: assetName,
+              data: fs.readFileSync(assetPath),
+              headers: {
+                'content-type': 'application/gzip',
+                'content-length': fs.statSync(assetPath).size,
+              },
+            });

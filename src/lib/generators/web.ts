@@ -41,16 +41,16 @@ function buildEmail(request: WebGeneratorRequest): string {
 }
 
 function buildUrl(request: WebGeneratorRequest): string {
+	const customValues = request.customValues ?? [];
 	const shouldUseCustomValue =
-		request.customValues &&
-		request.customValues.length > 0 &&
+		customValues.length > 0 &&
 		!request.domain &&
 		!request.path &&
 		!request.slug &&
 		Math.random() < 0.5;
 
 	if (shouldUseCustomValue) {
-		return normalizeCustomUrl(pickFromList(request.customValues));
+		return normalizeCustomUrl(pickFromList(customValues));
 	}
 
 	const dataset = resolveDataset(request.locale);

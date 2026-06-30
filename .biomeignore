@@ -7,6 +7,9 @@ src/**/*.astro
 dist/
 build/
 .astro/
+coverage/
+coverage
+coverage/**
 
 # Dependencies
 node_modules/

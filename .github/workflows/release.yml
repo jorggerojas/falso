@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_as:
+        description: Release strategy
+        required: false
+        default: auto
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout and install
+        uses: ./.github/actions/setup-pnpm-node
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run standard-version
+        run: |
+          case "${{ inputs.release_as }}" in
+            auto) pnpm release ;;
+            patch) pnpm release:patch ;;
+            minor) pnpm release:minor ;;
+            major) pnpm release:major ;;
+          esac
+
+      - name: Push release commit and tag
+        run: git push --follow-tags origin HEAD:${{ github.event.repository.default_branch }}

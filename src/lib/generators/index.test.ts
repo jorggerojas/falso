@@ -168,8 +168,8 @@ describe("generator behavior", () => {
 			generateCompanies({ count: 1, customValues: ["Acme"] }).values[0],
 		).toBe("Acme");
 		expect(
-			generatePersonas({ count: 1, customCompanyValues: ["Acme"] }).values[0]
-				.company,
+			generatePersonas({ count: 1, customCompanyValues: ["Acme"] }).values.at(0)
+				?.company,
 		).toBe("Acme");
 	});
 

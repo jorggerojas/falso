@@ -12,6 +12,7 @@
 		"includes": [
 			"**",
 			"!**/dist",
+			"!**/coverage",
 			"!**/node_modules",
 			"!**/.firebase",
 			"!./.firebase",

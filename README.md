@@ -1,38 +1,21 @@
 # Falso
 
-Falso is a local-first CLI for generating fake content for developers, testers,
-designers, and product builders.
+Falso is CLI for generating fake data for local development and testing. This would reduce time spent on creating fake data or searching online tools with HUGE amount of ads.
 
 It produces fake data, random text, structured mock objects, and reusable
 payloads for forms, QA workflows, UI mockups, demos, dashboards, and CMS
-entries, all from the terminal, with no network calls.
+entries, all from the terminal, with no network calls. 
+
+Add custom values to the catalog and use them in the generation process.
 
 ## Installation
 
 ```bash
-# From the repo (development)
-pnpm install
-pnpm dev -- --help
-
-# After publishing
 pnpm add -g falso
 falso --help
 ```
 
 ## Usage
-
-Run the CLI locally during development:
-
-```bash
-pnpm dev -- generate <type>
-```
-
-Build and run the compiled entry point:
-
-```bash
-pnpm build
-node dist/index.js --help
-```
 
 ### Commands
 
@@ -51,6 +34,15 @@ falso generate paragraph
 falso generate password
 falso generate url --domain example.dev --slug "Team Launch"
 ```
+
+Also, default command is `generate` so you can use it like this:
+
+```bash
+falso <type>
+# is the same as "falso generate <type>"
+falso name --count 10
+```
+
 
 | Type | Output |
 | ---- | ------ |
@@ -123,32 +115,12 @@ falso fill --dry-run    # preview the fill plan with mode and field values
 By default, `fill` includes every `generate` type as a key-value object.
 Use `config field remove` / `config field add` to customize the enabled fields.
 
-## Scripts
+### Config file
 
-- `pnpm dev` — run the CLI with `tsx` (pass flags after `--`).
-- `pnpm build` — bundle the CLI with `tsup`.
-- `pnpm lint` — run Biome checks and apply safe fixes.
-- `pnpm lint:ci` — run Biome in CI mode (no writes).
-- `pnpm format` — format source files with Biome.
-- `pnpm test` — run Vitest.
-- `pnpm test:watch` — run Vitest in watch mode.
-- `pnpm release` — cut a patch release with `standard-version`.
-- `pnpm release:minor` / `release:patch` / `release:major` — explicit semver bumps.
+Config file is stored in `~/.config/falso/config.json` by default. You can change the path by setting `FALSO_CONFIG_PATH` environment variable.
 
-## Project structure
+Using [`config` command](#config) you can manage the config file or directly edit it.
 
-- `src/index.ts` — CLI entry point (Commander program).
-- `src/commands/` — command definitions and handlers.
-- `src/lib/cli/` — config persistence and fill-plan helpers.
-- `src/lib/generators/` — person, web, content, and shared generator logic.
-- `src/lib/contracts/` — shared types and Zod schemas.
-- `src/data/` — typed catalog and dataset definitions.
+## Contributions
 
-## Conventions
-
-- Keep the project CLI-first and local-first.
-- Use TypeScript with strict mode; do not introduce `any`.
-- Use pnpm for package management.
-- Do not add backend, auth, analytics, or AI APIs.
-- Keep generated data clearly fake and safe for demos.
-- Avoid unnecessary dependencies and broad refactors.
+Contributions are welcome! Please feel free to open an issue or submit a pull request. Please follow the [Contributing Guide](CONTRIBUTING.md) for more details.

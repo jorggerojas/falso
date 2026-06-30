@@ -1,0 +1,18 @@
+{
+	"types": [
+		{ "type": "feat", "section": "Features", "hidden": false },
+		{ "type": "fix", "section": "Bug Fixes", "hidden": false },
+		{ "type": "perf", "section": "Performance Improvements", "hidden": false },
+		{ "type": "refactor", "section": "Code Refactoring", "hidden": false },
+		{ "type": "docs", "section": "Documentation", "hidden": false },
+		{ "type": "ci", "section": "Continuous Integration", "hidden": false },
+		{ "type": "build", "section": "Build System", "hidden": false },
+		{ "type": "style", "section": "Styles", "hidden": false },
+		{ "type": "workflow", "section": "Workflows", "hidden": false },
+		{ "type": "chore", "section": "Miscellaneous Chores", "hidden": true },
+		{ "type": "test", "section": "Tests", "hidden": false },
+		{ "type": "agent", "section": "Agents", "hidden": false },
+		{ "type": "agent-skill", "section": "Agent Skills", "hidden": false },
+		{ "type": "config", "section": "Configuration", "hidden": false }
+	]
+}

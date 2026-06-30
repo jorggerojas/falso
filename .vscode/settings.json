@@ -1,0 +1,41 @@
+{
+	// Default: prettier-eslint for languages Biome does not cover (see biome.json files.includes)
+	"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+
+	// Biome: JS/TS/JSON per biome.json (excludes css, astro, *.d.ts)
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+
+	// Astro: excluded from Biome (biome.json !**/*.{css,astro})
+	"astro.format.enable": true,
+	"[astro]": {
+		"editor.defaultFormatter": "astro-build.astro-vscode"
+	},
+
+	// prettier-eslint: other languages Biome does not cover
+	"[css]": {
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+	},
+	"[markdown]": {
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+	},
+	"[mdx]": {
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+	}
+}

@@ -1,0 +1,75 @@
+{
+	"name": "falso",
+	"description": "CLI Fake content generator",
+	"private": true,
+	"type": "module",
+	"version": "0.0.0",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jorggerojas/falso.git"
+	},
+	"homepage": "https://github.com/jorggerojas/falso#readme",
+	"bugs": {
+		"url": "https://github.com/jorggerojas/falso/issues"
+	},
+	"bin": {
+		"falso": "dist/index.js"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"dev": "tsx src/index.ts",
+		"build": "tsup",
+		"prepublishOnly": "pnpm build",
+		"lint": "biome check --write .",
+		"lint:ci": "biome ci",
+		"format": "biome format --write .",
+		"test": "vitest",
+		"test:watch": "vitest --watch",
+		"test:coverage": "vitest --coverage",
+		"prepare": "husky",
+		"release": "standard-version",
+		"release:minor": "standard-version --release-as minor",
+		"release:patch": "standard-version --release-as patch",
+		"release:major": "standard-version --release-as major"
+	},
+	"dependencies": {
+		"clipboardy": "^5.3.1",
+		"commander": "15.0.0",
+		"execa": "9.6.1",
+		"husky": "9.1.7",
+		"picocolors": "1.1.1",
+		"prompts": "2.4.2",
+		"semver": "7.8.1",
+		"update-notifier": "7.3.1",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.0",
+		"@commitlint/cli": "21.0.2",
+		"@commitlint/config-conventional": "21.0.2",
+		"@testing-library/jest-dom": "6.9.1",
+		"@types/node": "25.9.3",
+		"@types/prompts": "2.4.9",
+		"@types/semver": "7.7.1",
+		"@types/update-notifier": "6.0.8",
+		"@vitest/coverage-v8": "4.1.8",
+		"happy-dom": "20.10.3",
+		"husky": "9.1.7",
+		"lint-staged": "17.0.7",
+		"standard-version": "9.5.0",
+		"tsup": "8.5.1",
+		"tsx": "4.22.4",
+		"typescript": "6.0.3",
+		"vitest": "4.1.8"
+	},
+	"lint-staged": {
+		"*.{js,ts,tsx,jsx,json,css,mjs}": [
+			"biome check --write --error-on-warnings --files-ignore-unknown=true"
+		]
+	}
+}

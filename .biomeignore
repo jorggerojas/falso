@@ -1,0 +1,33 @@
+# Astro files - Biome only supports frontmatter, causes hanging
+**/*.astro
+src/**/*.astro
+*.astro
+
+# Build outputs
+dist/
+build/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Generated files
+.env
+.env.*
+
+# Config files that might cause issues
+*.config.js
+*.config.mjs
+*.config.ts
+
+# GitHub workflows
+.github/
+
+# Firebase
+.firebase/
+firebase.json
+.firebaserc
+
+# Other potential problematic files
+*.md
+public/

@@ -1,0 +1,8 @@
+{
+	"recommendations": [
+		"astro-build.astro-vscode",
+		"biomejs.biome",
+		"rvest.vs-code-prettier-eslint"
+	],
+	"unwantedRecommendations": ["esbenp.prettier-vscode"]
+}

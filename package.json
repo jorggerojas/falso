@@ -3,7 +3,7 @@
 	"description": "CLI Fake content generator",
 	"private": true,
 	"type": "module",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"engines": {
 		"node": ">=22.12.0"
 	},

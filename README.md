@@ -1,4 +1,4 @@
-# Falso
+# falso-cli
 
 Falso is CLI for generating fake data for local development and testing. This would reduce time spent on creating fake data or searching online tools with HUGE amount of ads.
 
@@ -11,7 +11,7 @@ Add custom values to the catalog and use them in the generation process.
 ## Installation
 
 ```bash
-pnpm add -g falso
+pnpm add -g falso-cli
 falso --help
 ```
 

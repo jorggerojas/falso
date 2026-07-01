@@ -15,7 +15,8 @@
 		"url": "https://github.com/jorggerojas/falso/issues"
 	},
 	"bin": {
-		"falso": "dist/index.js"
+		"falso": "dist/index.js",
+		"falso-cli": "dist/index.js"
 	},
 	"files": [
 		"dist"
